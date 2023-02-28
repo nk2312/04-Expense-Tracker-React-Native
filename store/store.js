@@ -1,5 +1,5 @@
-import { Children, createContext, useReducer } from "react";
-import { Switch } from "react-native";
+import { createContext, useReducer } from "react";
+
 const DUMMY_DATA = [
   {
     id: "1",
@@ -43,6 +43,7 @@ export const ExpenseContext = createContext({
   addExpense: () => {},
   deleteExpense: (id) => {},
   update: (id, {}) => {},
+  setExpenses:()=>{}
 });
 
 function expenseReducer(state,action){
@@ -58,6 +59,8 @@ function expenseReducer(state,action){
             const array=[...state];
             array[index]=action.payload.expenseData
             return array;
+        case 'SET':
+          return action.payload.data
         default:
             state
     }
@@ -66,14 +69,17 @@ function expenseReducer(state,action){
 export const ExpenseContextProvider = ({children}) => {
   const [expenseState, dispatchExpense] = useReducer(
     expenseReducer,
-    DUMMY_DATA
+    []
   );
 
-  function addExpense(expenseData){
-    const data={...expenseData,id:Math.random()*10}
+  function addExpense(data){
+    
     dispatchExpense({type:'ADD',payload:{data}})
   }
 
+  function setExpenses(data){
+    dispatchExpense({type:'SET',payload:{data}})
+  }
   function deleteExpense(id){
     dispatchExpense({type:'DELETE',payload:{id}})
   }
@@ -87,6 +93,7 @@ export const ExpenseContextProvider = ({children}) => {
     deleteExpense: deleteExpense,
     update: update,
     expenses: expenseState,
+    setExpenses:setExpenses
   };
 
   return (

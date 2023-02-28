@@ -48,7 +48,7 @@ function ExpenseForm({ cancelHandler, idExist, onSubmit, defaultObj }) {
       // Alert.alert("input is wrong ")
       return
     }
-   
+   console.log(inputObj)
     onSubmit(obj);
   }
 

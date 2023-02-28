@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext ,useEffect,useState} from 'react'
 
 import {View,Text,StyleSheet} from 'react-native'
 import ExpensesOutput from '../components/ExpensesOutput'
 import { ExpenseContext } from '../store/store'
 import { getDataFromSevenDays } from '../constants/date'
 import Card from '../components/UI/Card'
+import { fetchData } from '../constants/backend/Request'
 
 
 function Recent() {
